@@ -1,4 +1,3 @@
-import logging 
 import azure.functions as func 
 from azure.storage.blob import BlobServiceClient 
     #pip install azure-storage-blob 
@@ -7,7 +6,6 @@ import pandas as pd
 import datetime 
 
 def main(req: func.HttpRequest) -> func.HttpResponse: 
-    logging.info('Python HTTP trigger function processed a request.') 
     # INPUTSTORAGEACCOUNTURLSAS= "{SAS Key to Employee file}" 
     # STORAGEACCOUNTSAS="{SAS Key to Output Location}"
     # 14/03 up to 26/03/2023 13:42
@@ -25,7 +23,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     #     print(e)
     #     logging.info("Unable to read file from BlobStorage.\n"+str(e))
 
-    logging.info('Python HTTP trigger function read input file(s).')
     print('Python HTTP trigger function read input file(s).')
 
     #Do the data manipulation
@@ -40,7 +37,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     
     # Instantiate a new ContainerClient 
     container_client = blob_service_client.get_container_client("prod-data") 
-    logging.info('Python HTTP trigger function connected to output container and retrieved it.')
     print('Python HTTP trigger function connected to output container and retrieved it.')
     # Instantiate a new BlobClient 
     blob_client = container_client.get_blob_client("output/employeecountbyyear.csv") 
@@ -52,7 +48,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
         container_client.upload_blob(name="output/employeecountbyyear.csv", data=output, overwrite=True) 
     except Exception as e: 
-        print(e)
-        logging.info("Unable to connect to BlobStorage.\n"+str(e))
-    
-    logging.info('Python HTTP trigger function saved file.')
+        print(e)   
