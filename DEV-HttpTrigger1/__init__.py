@@ -4,6 +4,7 @@ from azure.storage.blob import BlobServiceClient
 import pandas as pd 
     #pip install pandas 
 import datetime 
+import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse: 
     # INPUTSTORAGEACCOUNTURLSAS= "{SAS Key to Employee file}" 
@@ -34,18 +35,22 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     #Connect to Output location of Azure Blob 
     blob_service_client = BlobServiceClient.from_connection_string(STORAGEACCOUNTSAS) 
-    
+    output_dir = "output/"
+    output_file = "employeecountbyyear.csv"
+
     # Instantiate a new ContainerClient 
     container_client = blob_service_client.get_container_client("prod-data") 
     print('Python HTTP trigger function connected to output container and retrieved it.')
     # Instantiate a new BlobClient 
-    blob_client = container_client.get_blob_client("output/employeecountbyyear.csv") 
+    # blob_client = container_client.get_blob_client("output/employeecountbyyear.csv") 
+    blob_client = container_client.get_blob_client(output_dir+output_file) 
     if blob_client.exists(): 
         blob_client.delete_blob() 
 
     print('Python HTTP trigger function updated blob locally.')
 
     try:
-        container_client.upload_blob(name="output/employeecountbyyear.csv", data=output, overwrite=True) 
+        # container_client.upload_blob(name="output/employeecountbyyear.csv", data=output, overwrite=True) 
+        container_client.upload_blob(name=output_dir+output_file, data=output, overwrite=True) 
     except Exception as e: 
         print(e)   

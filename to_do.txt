@@ -1,0 +1,3 @@
+# Script ends with TypeError after receiving HTTPS response.
+# data transformation is succesfull from and to storage.
+# but all runs end in Failure due to Function Worker issue above
