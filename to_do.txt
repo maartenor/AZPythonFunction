@@ -1,3 +1,13 @@
 # Script ends with TypeError after receiving HTTPS response.
 # data transformation is succesfull from and to storage.
 # but all runs end in Failure due to Function Worker issue above
+
+Executed 'Functions.HttpExample' (Failed, Id=bc8a184c-7b20-4946-a92c-ed2afad66e56, Duration=17ms)
+[2021-10-15T20:14:11.494Z] System.Private.CoreLib: Exception while executing function: Functions.HttpExample. System.Private.CoreLib: Result: Failure
+Exception: TypeError: unable to encode outgoing TypedData: unsupported type "<class 'azure.functions.http.HttpResponseConverter'>" for Python type "NoneType"
+Stack:   File "C:\Program Files\Microsoft\Azure Functions Core Tools\workers\python\3.9\WINDOWS\X64\azure_functions_worker\dispatcher.py", line 427, in _handle__invocation_request
+    return_value = bindings.to_outgoing_proto(
+  File "C:\Program Files\Microsoft\Azure Functions Core Tools\workers\python\3.9\WINDOWS\X64\azure_functions_worker\bindings\meta.py", line 116, in to_outgoing_proto
+    datum = get_datum(binding, obj, pytype)
+  File "C:\Program Files\Microsoft\Azure Functions Core Tools\workers\python\3.9\WINDOWS\X64\azure_functions_worker\bindings\meta.py", line 107, in get_datum
+    raise TypeError(
